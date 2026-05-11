@@ -83,6 +83,9 @@ $s$ is the sample standard deviation, which is calculated as the square root of 
 
 ## Variance
 
+**Standard Deviation Squared**
+- We used SD for description of spread because variance would be unit^2, so that's why we typically interpret it using SD.
+
 $$
 s^2 = \frac{\sum(y_i - \bar{y})^2}{n - 1}
 $$
@@ -179,6 +182,9 @@ histogram <- ggplot(data = wq,
 histogram
 ```
 
+- East and Venoco have **bimodal** distribution
+- Phelps is **unimodal** with lots of observations at low values
+
 Potential caption:
 
 **Figure 1. Distributions of salinity differ across sites.** Distributions of salinity (parts per thousand) shown in histograms for each site (red: Phelps Bridge, orange: East Channel, and teal: Venoco Bridge). Bars represent counts of observations falling in each bin along the x-axis.
@@ -194,6 +200,10 @@ Potential caption:
 - top of box: third quartile (75th percentile)
 - whiskers: 1.5 $\times$ interquartile range
 - points: observation values outside 1.5 $\times$ interquartile range
+
+**Pay attention to**
+- 1. median position relative to y-axis
+- 2. median position relative to each other
 
 ```{r}
 #| label: boxplots
@@ -263,6 +273,13 @@ jitter <- ggplot(data = wq,
 jitter
 ```
 
+
+**Figure Clustering Observations**
+- Clustering around 0 for all sites
+- Could be some cluster around > 20
+- Phelps have narrower range
+- East Channel and Venoco Bridge have a larger range
+
 Potential captions:
 
 **Figure 3. Median salinity differs across sites.** Boxplots representing median (middle line) salinity (parts per thousand) and 25th and 75th percentiles at each site (red: Phelps Bridge, orange: East Channel, and teal: Venoco Bridge). Whiskers represent observations within 1.5 $\times$ interquartile range, and points represent observations outside the range. 
@@ -274,9 +291,19 @@ Potential captions:
 **Components:**
 
 - x-axis: continuous variable of interest
-- y-axis: probability density
+- y-axis: *probability density*
 - smoothed function representing the shape of the distribution
 - note: area under that smoothed function = 1
+
+Curve:
+- "kernel density estimation"
+
+*Only really good for large dataset*
+
+Log 1 + transformation:
+- good to better see patterns
+- **be careful when making figure interpretation from the transform plot**. (3 on the transformed plot would have to be transformed back to find the true value)
+- All of your descriptions of plots with log+1 transform should be qualitative
 
 **Pay attention to:**
 
@@ -357,6 +384,11 @@ The transformation can help with visualization (i.e. make it easier to pick out 
 - wide or narrow parts of the violin
 - position of wide or narrow parts along y-axis
 
+**Notes**
+
+- density plot mirrored across y-axis
+- allows you to better see the distributions
+
 ```{r}
 #| label: violin
 
@@ -400,6 +432,10 @@ violin_log1 <- ggplot(data = wq,
 # displaying object
 violin_log1
 ```
+
+Figure Interpretations:
+- Phelps has more observations at low end
+- East and Venoco have more observations at high end
 
 Potential captions:
 
@@ -450,6 +486,8 @@ jitter +
 
 **With standard error:**
 
+*Represents how precise you sample mean is*
+
 Note that standard error is calculated as:
 
 $$
@@ -472,6 +510,10 @@ jitter +
 ```
 
 **With 95% confidence interval:**
+
+You are 95% confident that the true mean salinity value falls within the 95% CI range
+
+**If you include whiskers you need to include description of metric represented in the whisker**
 
 ```{r}
 #| label: means-ci
@@ -574,6 +616,10 @@ if comparing two groups: **two-sample t-test**
 
 if comparing more than two groups: **analysis of variance (ANOVA)**
 
+## Counts
+
+**chi-square**
+
 # 8. Project work
 
 Get with your group members and discuss:
@@ -596,4 +642,11 @@ A figure in which you are comparing your response variable across groups might d
 
 :::
 
-
+"execute:
+  message: false
+  warning: false
+  echo: false
+  fig-width: 8
+  fig-height: 4"
+  
+- chooses to show code chunk + output or just output
